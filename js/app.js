@@ -10,16 +10,34 @@ function populate() {
         // show question
         
         var qText = document.getElementById("question");
+        var qs = questions.sort(function() {
+                      return .5 - Math.random();
+                    });
+
         qText.innerHTML = quiz.getQuestionIndex().text;
        
         // show choices
         
-        var choices = quiz.getQuestionIndex().choices;
-        for (var i =0; i < choices.length; i++){
-            var element = document.getElementById("choice"+i);
-            element.innerHTML= choices[i];
-            guess("btn" + i, choices[i]);
-        }
+        var choices = quiz.getQuestionIndex().choices.sort(function() {
+                      return .5 - Math.random();
+                    });
+
+        var choi = choices.map(function(x){
+            
+            var index = choices.indexOf(x);
+            var element = document.getElementById("choice"+index);
+            element.innerHTML= x;
+            guess("btn" + index, choices[index]);
+            
+        });
+        
+        
+        
+//        for (var i = 0; i < choices.length; i++){
+//            var element = document.getElementById("choice"+i);
+//            element.innerHTML= choices[i];
+//            guess("btn" + i, choices[i]);
+//        }
         
         showProgress();
     }
