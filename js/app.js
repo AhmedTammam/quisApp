@@ -1,40 +1,38 @@
-var xhttp = new XMLHttpRequest();
-var url = "quizlist.json"; // will not work due to cross origin problem
+function getQuestions(cb) {
+    var xhttp = new XMLHttpRequest();
+    var url = "/js/quizlist.json"; // will not work due to cross origin problem
 
-xhttp.onreadystatechange = function () {
-if (this.readyState == 4 && this.status == 200) {
-    var myqui = JSON.parse(xhttp.responseText);
-
-    var qs = mayqui.questions;
-    var questions = [];
-    var i =0;
-
-    // wrong for lopp syntax
-    for(i< qs.length; i++;){
-        var child = new Question (qs[i].text, qs[i].choices, qs[i].answer);
-        questions.push(child);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var myqui = JSON.parse(xhttp.responseText);
+            var questions = [];
+            var qs = myqui.questions;
+            
+            for(var i =0; i< qs.length; i++){
+                var child = new Question (qs[i].text, qs[i].choices, qs[i].answer);
+                questions.push(child);
+            }
+            return cb(questions);
+        }
     }
-};
-// missing }
-
 // wrong var name xmlhttp != xhttp
-xmlhttp.open("GET", url, true);
-xmlhttp.send();
+xhttp.open("GET", url, true);
+xhttp.send();
+}
 
 
-function populate() {
+function populate(quiz) {
     'use strict';
-
     if (quiz.isEnd()) {
 
-        showScores();
+        showScores(quiz);
 
     } else {
 
         // show question
 
         var qText = document.getElementById("question");
-        var qs = questions.sort(function() {
+        var qs = quiz.questions.sort(function() {
                       return .5 - Math.random();
                     });
 
@@ -51,24 +49,24 @@ function populate() {
             var index = choices.indexOf(x);
             var element = document.getElementById("choice"+index);
             element.innerHTML= x;
-            guess("btn" + index, choices[index]);
+            guess("btn" + index, choices[index], quiz);
 
         });
 
-        showProgress();
+        showProgress(quiz);
     }
 
 }
 
-function guess(id,guess) {
+function guess(id,guess, quiz) {
     var button = document.getElementById(id);
     button.onclick = function (){
         quiz.guess(guess);
-        populate();
+        populate(quiz);
     }
 }
 
-function showProgress() {
+function showProgress(quiz) {
     var curQuiNo = quiz.questionIndex + 1;
     var current = document.getElementById("current");
     var total = document.getElementById("total");
@@ -77,7 +75,7 @@ function showProgress() {
 }
 
 
-function showScores() {
+function showScores(quiz) {
 
     var gameOverHtml = "<h1 class='result text-center'>Result</h1>";
     var element = document.getElementById("fll");
@@ -109,7 +107,11 @@ function showScores() {
 //    new Question("Who was the first man to set foot on the moon?", ["Mohammed Fox", "Neil Armstrong", "Hamoly", "Tammam"], "Neil Armstrong")
 //];
 
+getQuestions(function(questions){
+    console.log(questions);
+    var quiz = new Quiz(questions);
 
-var quiz = new Quiz(questions);
+    populate(quiz);
+});
 
-populate();
+
