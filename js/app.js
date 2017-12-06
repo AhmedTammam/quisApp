@@ -1,5 +1,5 @@
 var xhttp = new XMLHttpRequest();
-var url = "quizlist.json";
+var url = "quizlist.json"; // will not work due to cross origin problem
 
 xhttp.onreadystatechange = function () {
 if (this.readyState == 4 && this.status == 200) {
@@ -9,12 +9,15 @@ if (this.readyState == 4 && this.status == 200) {
     var questions = [];
     var i =0;
 
+    // wrong for lopp syntax
     for(i< qs.length; i++;){
         var child = new Question (qs[i].text, qs[i].choices, qs[i].answer);
         questions.push(child);
     }
 };
+// missing }
 
+// wrong var name xmlhttp != xhttp
 xmlhttp.open("GET", url, true);
 xmlhttp.send();
 
