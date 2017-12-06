@@ -1,0 +1,30 @@
+{
+    "questions" : [
+        {
+          "text" : "Curiosity is a car-sized rover that was launched by NASA in 2011 to explore which planet?",
+          "choices" : ["Mars", "earth", "Uranus", "Venus"],
+          "answer" :"Mars"
+        },
+        {
+          "text" : "Which country and it's territories cover the most time zones?",
+          "choices" : ["USA", "Jerman", "France", "Egypt"],
+          "answer" :"France"
+        },
+        {
+          "text" : "Jackson Pollock was an influential abstract expressionist painter from what country??",
+          "choices" : ["USA", "Jerman", "France", "Egypt"],
+          "answer" :"USA"
+        },
+        {
+          "text" : "Who is the only US president to serve more than two terms?",
+          "choices" : ["Ubama", "Roosevelt", "Trump", "JW Boush"],
+          "answer" :"Roosevelt"
+        },
+        {
+          "text" : "Who was the first man to set foot on the moon?",
+          "choices" : ["Mohammed Fox", "Neil Armstrong", "Hamoly", "Tammam"],
+          "answer" :"Neil Armstrong"
+        }
+        
+    ]
+}
